@@ -11,5 +11,21 @@ import java.util.List;
 @RequestMapping("/pecas")
 public class PecaController {
 
+    private PecaService pecaService;
 
+    public PecaController(PecaService pecaService) {
+        this.pecaService = pecaService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Peca>> listarPecas() {
+        return ResponseEntity.ok(pecaService.listar());
+    }
+
+    @PostMapping
+    public ResponseEntity<Peca> criarPeca(@RequestBody Peca peca) {
+        Peca novaPeca = pecaService.salvar(peca);
+
+        return ResponseEntity.ok(novaPeca);
+    }
 }
